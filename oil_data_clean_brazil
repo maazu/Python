@@ -19,15 +19,15 @@ df = pd.read_excel('2005-2020-05_producao_mar_(offshore).xlsx')
 data = {}
 
 
-well_index = 1
-oil_index = 2
-cond_index = 3
-petrol_index = 4
-gasAssociado_index = 5
-gasNaoAssociado_index = 6
-gastotal_index = 7
-gasvol_index = 8
-gasAgua_index = 9
+
+oil_index = 1
+cond_index = 2
+petrol_index = 3
+gasAssociado_index = 4
+gasNaoAssociado_index = 5
+gastotal_index = 6
+gasvol_index = 7
+gasAgua_index = 8
 
 def find_in_2d_array(arr, value):
     return value in chain.from_iterable(arr)
@@ -50,7 +50,7 @@ for index, row in df.iterrows():
        print(index)
        break
     
-    well = str(row['ANP']).strip()
+    #well = str(row['ANP']).strip()
     field = row['Campo'].strip()
     year  = row['Período'].strip()
     oil   = float(row['Óleo (bbl/dia)'])
@@ -63,7 +63,6 @@ for index, row in df.iterrows():
     gasAgua = float(row['Água (bbl/dia)'])
    
    
-    
     if(field in data):
         if(find_in_2d_array(data[field],year)==True):
             get_date_index = find_index_2d_array(data[field],year)
@@ -78,9 +77,9 @@ for index, row in df.iterrows():
             data[field][date_index][gasvol_index]   = float(data[field][date_index][gasvol_index]) + float(gasvol)
             data[field][date_index][gasAgua_index]  = float(data[field][date_index][gasAgua_index]) + float(gasAgua)
         else:
-           data[field].append([year,str(well),oil,condensation,petrol,gasAssociado,gasNaoAssociado,gastotal,gasvol,gasAgua])
+           data[field].append([year,oil,condensation,petrol,gasAssociado,gasNaoAssociado,gastotal,gasvol,gasAgua])
     else:
-        data[field] = [[year,str(well),oil,condensation,petrol,gasAssociado,gasNaoAssociado,gastotal,gasvol,gasAgua]]
+        data[field] = [[year,oil,condensation,petrol,gasAssociado,gasNaoAssociado,gastotal,gasvol,gasAgua]]
     
     
 print("reading finshed complete" ,time.time()  - start)   
@@ -88,7 +87,7 @@ print('writing data into csv......')
 with open('refiltered.csv', 'w', newline='') as brazil_file:
     csv_writer = csv.writer(brazil_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     header = [
-              'Campo','Período','ANP','Óleo (bbl/dia)','Condensado (bbl/dia)',
+              'Campo','Período','Óleo (bbl/dia)','Condensado (bbl/dia)',
               'Petróleo (bbl/dia)', 'Associado', 'Não Associado', 'Gás Total',
               'Volume Gás Royalties (Mm³/dia)','Água (bbl/dia)'  
               ]
@@ -97,8 +96,6 @@ with open('refiltered.csv', 'w', newline='') as brazil_file:
     for key, value in data.items():
         length_key = len(data[key])
         #print("Total field data:" , length_key)
-       
-        
         for i in range(0,length_key):
             csv_writer.writerow([key,
                   data[key][i][0],
@@ -109,8 +106,7 @@ with open('refiltered.csv', 'w', newline='') as brazil_file:
                   data[key][i][5],
                   data[key][i][6],
                   data[key][i][7],
-                  data[key][i][8],
-                  data[key][i][9]]
+                  data[key][i][8]]
                                 ) 
 
 print('Finshed the script please see the file.')
