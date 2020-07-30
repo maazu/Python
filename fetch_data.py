@@ -9,7 +9,6 @@ from zipfile import ZipFile
 from urllib.request import urlopen
 import datetime
 import requests
-import csv
 import time
 import re
 import unicodedata
