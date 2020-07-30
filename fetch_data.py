@@ -9,10 +9,8 @@ from zipfile import ZipFile
 from urllib.request import urlopen
 import datetime
 import requests
-from itertools import chain
 import csv
 import time
-import mysql.connector
 import re
 import unicodedata
 import sys
