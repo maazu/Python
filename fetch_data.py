@@ -2,6 +2,11 @@
 """
 Created on Wed Jul 29 21:29:05 2020
 @author: Maaz
+Brazil Minstry of Petroleum release oil production data every month
+in a zipfile by year. The zip file of each year contain offshore and onshore
+oil data.
+This script combines all the offshore data released after 2004 into one dataframe
+and save the dataframe into a csv file. 
 """
 import pandas as pd
 from io import BytesIO
@@ -88,4 +93,5 @@ def main():
     print('All data is combined.')
     
     
-main()
+ if __name__ == "__main__":
+    main()
